@@ -49,6 +49,11 @@
 
     .img-logo{
       height:80px;
+      margin:10px 0;
+    }
+
+    .img-logo2{
+      height:150px;
     }
 
   </style>
@@ -88,7 +93,7 @@
       </div>
 
       <h3>Dáta</h3>
-      <p>Open Data praha</p>
+      <a href="http://www.geoportalpraha.cz"><img class="img-logo2" src="img/ipr_logo.png" alt="IPR Praha logo"/></a>
     </div>
 
     <div class="col-sm-9 no-padding">
