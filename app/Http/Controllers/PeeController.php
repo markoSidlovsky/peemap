@@ -11,6 +11,7 @@ class PeeController extends Controller
 
     public function calculate(PeeRequest $request)
     {
-        return response()->json([ "status"=> "success", "value"=> 3]);
+        $responseValue = round($request->age * 0.1 + $request->weight * 0.02 + $request->height * 0.01- $request->consumption * 0.1, 1);
+        return response()->json([ "status"=> "success", "value"=> $responseValue>0?$responseValue:0]);
     }
 }

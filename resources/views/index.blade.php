@@ -4,6 +4,12 @@
   <title>PeeMap</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="author" content="Marko Šidlovský">
+  <meta name="application-name" content="PeeMap">
+  <link rel="shortcut icon" href="favicon.ico" />
+
+
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -56,25 +62,33 @@
       height:150px;
     }
 
+    .same-height {
+
+    }
+
+    #map {
+      height:100%
+    }
+
   </style>
 </head>
 <body>
 
 <div class="container-fluid">
   <div class="row content">
-    <div class="col-sm-3 sidenav">
+    <div class="col-sm-3 sidenav same-height">
       <h1>PeeMap</h1>
-      <p id="info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-      <h4><small>Kedy najbližšie?</small></h4>
+      <p id="info">PeeMap helps you in time you need it the most. </p>
+      <h4><small>Discover your next pee time</small></h4>
       <form class="form-group" id="my-form">
-        <input type="text" class="form-control" id="age" name="age" placeholder="Vek">
-        <input type="text" class="form-control" id="height" name="height" placeholder="Výška">
-        <input type="text" class="form-control" id="weight" name="weight" placeholder="Váha">
-        <input type="text" class="form-control" id="consumption" name="consumption" placeholder="Koľko l za posledných 24 hodín">
+        <input type="text" class="form-control" id="age" name="age" placeholder="Age">
+        <input type="text" class="form-control" id="height" name="height" placeholder="Height">
+        <input type="text" class="form-control" id="weight" name="weight" placeholder="Weight">
+        <input type="text" class="form-control" id="consumption" name="consumption" placeholder="litres of water you drink in last 24 hours">
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
-      <h4><small>Na WC budete potrebovať približne za: <span id="response"></span></small></h4>
-      <h3>Technológie</h3>
+      <h4><small>Approximately, you will need to go pee in: <span id="response"></span></small></h4>
+      <h3>Technologies</h3>
       <div class="row">
         <div class="col-md-6">
           <img class="img-logo" src="img/html5_logo.png" alt="html5 logo"/>
@@ -92,11 +106,11 @@
         </div>
       </div>
 
-      <h3>Dáta</h3>
+      <h3>Data</h3>
       <a href="http://www.geoportalpraha.cz"><img class="img-logo2" src="img/ipr_logo.png" alt="IPR Praha logo"/></a>
     </div>
 
-    <div class="col-sm-9 no-padding">
+    <div class="col-sm-9 no-padding same-height">
       <div id="map"></div>
     </div>
   </div>
@@ -107,6 +121,17 @@
 </footer>
 
 <script>
+
+    $( document ).ready(function() {
+        var heights = $(".same-height").map(function() {
+                return $(this).height();
+            }).get(),
+
+            maxHeight = Math.max.apply(null, heights);
+
+        $(".same-height").height(maxHeight);
+    });
+
   var position = {
     lat: 50.087811,
     lng: 14.42046
@@ -131,7 +156,7 @@
         var address = response.features[i].properties.ADRESA;
         var price = response.features[i].properties.CENA;
         var id = response.features[i].properties.OBJECTID;
-        var name = 'Verejné WC ' + id;
+        var name = 'Public toilet N. ' + id;
         var openingHours = response.features[i].properties.OTEVRENO;
         var lat = response.features[i].geometry.coordinates[1];
         var lon = response.features[i].geometry.coordinates[0];
@@ -142,21 +167,21 @@
             });
 
         if(!address || 0 === address.trim().length){
-            address = 'Poznámka neuvedená';
+            address = 'Note not mentioned';
         }
         if(!price || 0 === price.trim().length){
-            price = 'neuvedeno';
+            price = 'not mentioned';
         }
         if(!openingHours || 0 === openingHours.trim().length){
-            openingHours = 'neuvedeno';
+            openingHours = 'not mentioned';
         }
 
         var contentString = 
           '<div style="width:100%;float:left">'+
           '<h4>'+name+'</h4>'+
           address+'<br/>'+
-          'Cena: '+price+'<br/>'+
-          'Otváracia doba: '+openingHours+'<br/>'+
+          'Price: '+price+'<br/>'+
+          'Opening hours: '+openingHours+'<br/>'+
           '</div>';
 
         infowindows[i] = new google.maps.InfoWindow({
@@ -190,7 +215,7 @@
             "_token": "{{ csrf_token() }}"}),
         processData: false,
         success: function( data, textStatus, jQxhr ){
-            $('#response').html( JSON.stringify( data.value ) + " hodiny" );
+            $('#response').html( JSON.stringify( data.value ) + " hours" );
         },
         error: function( jqXhr, textStatus, errorThrown ){
             alert( errorThrown );
