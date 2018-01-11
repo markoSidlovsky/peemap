@@ -202,7 +202,7 @@
   }
 
   function processForm( e ){
-    console.log("Process form");
+    // console.log("Process form");
     $.ajax({
         url: '{{ action('PeeController@calculate') }}',
         dataType: 'json',
