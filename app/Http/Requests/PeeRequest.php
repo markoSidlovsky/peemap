@@ -30,4 +30,6 @@ class PeeRequest extends FormRequest
             "consumption" => "required|numeric|min:0|max:100"
         ];
     }
+
+
 }
