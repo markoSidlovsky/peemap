@@ -15,4 +15,4 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::post('/api', 'PeeController@calculate');
+Route::post('/calculate', 'PeeController@calculate');
