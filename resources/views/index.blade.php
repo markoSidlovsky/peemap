@@ -81,10 +81,10 @@
       <p id="info">PeeMap helps you in time you need it the most. </p>
       <h4><small>Discover your next pee time</small></h4>
       <form class="form-group" id="my-form">
-        <input type="text" class="form-control" id="age" name="age" placeholder="Age">
-        <input type="text" class="form-control" id="height" name="height" placeholder="Height">
-        <input type="text" class="form-control" id="weight" name="weight" placeholder="Weight">
-        <input type="text" class="form-control" id="consumption" name="consumption" placeholder="litres of water you drink in last 24 hours">
+        <input type="number" class="form-control" id="age" name="age" placeholder="Age" min="1" max="150" required>
+        <input type="number" class="form-control" id="height" name="height" placeholder="Height" min="10" max="280" required>
+        <input type="number" class="form-control" id="weight" name="weight" placeholder="Weight" min="10" max="500" required>
+        <input type="number" class="form-control" id="consumption" name="consumption" placeholder="litres of water you drink in last 24 hours"  min="0" max="100" required>
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
       <h4><small>Approximately, you will need to go pee in: <span id="response"></span></small></h4>

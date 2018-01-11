@@ -25,8 +25,8 @@ class PeeRequest extends FormRequest
     {
         return [
             "age" => "required|numeric|min:1|max:150",
-            "weight" => "required|numeric|min:10|max:220",
-            "height" => "required|numeric|min:20|max:270",
+            "weight" => "required|numeric|min:10|max:280",
+            "height" => "required|numeric|min:10|max:500",
             "consumption" => "required|numeric|min:0|max:100"
         ];
     }
